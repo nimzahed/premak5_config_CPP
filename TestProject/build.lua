@@ -5,7 +5,6 @@ prj_includes = {
 }
 
 --[[
--- do nils then include
 prj_name = nil -- "ProjectName" !important
 prj_loc = nil -- "Better/Not/Change/"
 prj_configs = nil -- (better use premake things by hand just implumented defines) 
