@@ -20,11 +20,11 @@ prj_configs = nil -- (better use premake things by hand just implumented defines
     }
 }]]
 prj_files = nil 
--- these are implumented {
+--[[ these are implumented {
     "%{prj.location}/**.hpp", "%{prj.location}/**.h" ,
     "%{prj.location}/**.c" , "%{prj.location}/**.cpp",
     "%{prj.location}/**.lua", "%{prj.location}/**.txt", "%{prj.location}/**.ini", "%{prj.location}/**.md", 
-} 
+}]]
 prj_kindof = "ConsoleApp"
 prj_includes = nil -- these are implumented { "%{prj.location}/include", "%{wks.location}/include" } 
 prj_links = nil -- {"project1", "project2Name", "project3Chilly"}
