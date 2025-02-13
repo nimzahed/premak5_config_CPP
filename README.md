@@ -3,6 +3,7 @@ its my premake5 configs to to make crossplatform cpp project
 
 # Usage
 its easy just put a ```build.lua``` in ur project folder and do this *configs* if you want.
+> i added two **Test Directories** these are just for examples
 > using ```prj_name = "ProjectName"``` is important
 ```lua
 prj_name = nil -- "ProjectName" !important
