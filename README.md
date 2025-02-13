@@ -6,6 +6,8 @@ its easy just put a ```build.lua``` in ur project folder and do this *configs* i
 > i added two **Test Directories** these are just for examples
 
 > using ```prj_name = "ProjectName"``` is important
+> 
+> you are free to use any premake functions in build.lua
 ```lua
 prj_name = nil -- "ProjectName" !important
 prj_loc = nil -- "Better/Not/Change/"
