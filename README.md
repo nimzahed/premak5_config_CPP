@@ -10,7 +10,7 @@ its easy just put a ```build.lua``` in ur project folder and do this *configs* i
 prj_name = nil -- "ProjectName" !important
 prj_loc = nil -- "Better/Not/Change/"
 prj_configs = nil -- (better use premake things by hand just implumented defines) 
-usage (these are implumented by default) : { 
+--[[usage (these are implumented by default) : { 
     ["configurations:Release"] = {
         ["defines"] = {"NDEBUG", "Release"},
     }
@@ -18,7 +18,7 @@ usage (these are implumented by default) : {
     {
         ["defines"] = {"DEBUG", "_DEBUG"},
     }
-}
+}]]
 prj_files = nil 
 -- these are implumented {
     "%{prj.location}/**.hpp", "%{prj.location}/**.h" ,
