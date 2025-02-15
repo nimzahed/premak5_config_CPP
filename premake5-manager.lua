@@ -20,6 +20,8 @@ function NZA_newProject()
         "%{prj.location}/**.c" , "%{prj.location}/**.cpp",
         "%{prj.location}/**.lua", "%{prj.location}/**.txt", "%{prj.location}/**.ini", "%{prj.location}/**.md", 
     } 
+
+    removefiles { "include/**.*", "**/include/**.*" }
     if prj_files ~= nil then
         files (prj_files)
     end
