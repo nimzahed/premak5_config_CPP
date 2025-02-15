@@ -62,6 +62,10 @@ function NZA_newProject()
         defines(prj_defines)
     end
 
+    if prj_kindof == "SharedLib" then
+        defines { string.upper(prj_name).."_BUILD_DLL" }  
+    end
+
     filter "configurations:Debug"
         defines { "DEBUG", "_DEBUG" }  
         symbols "On" 
