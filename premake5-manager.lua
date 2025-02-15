@@ -58,6 +58,10 @@ function NZA_newProject()
         prelinkcommands(prj_prelink)
     end
     
+    if prj_defines then 
+        defines(prj_defines)
+    end
+
     filter "configurations:Debug"
         defines { "DEBUG", "_DEBUG" }  
         symbols "On" 
@@ -95,6 +99,7 @@ function NZA_include(what)
     prj_postbuild = nil
     prj_prebuild = nil
     prj_prelink = nil
+    prj_defines = nil
     include(what)
 end
 
