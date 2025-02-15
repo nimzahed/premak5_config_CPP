@@ -6,7 +6,7 @@ function NZA_newProject()
     language "C++"   
     cppdialect "C++20"
 
-    targetdir "%{wks.location}/build/bin/%{cfg.architecture}/%{cfg.buildcfg}"
+    targetdir "%{wks.location}/build/bin/%{cfg.architecture}/%{cfg.buildcfg}/%{prj.name}/"
     objdir "%{wks.location}/build/obj/%{cfg.architecture}/%{cfg.buildcfg}/%{prj.name}/" 
 
     --location ("%{wks.location}/"..name.."/")
@@ -48,6 +48,15 @@ function NZA_newProject()
         links(linksTable)
     end
 
+    if prj_postbuild then 
+        postbuildcommands(prj_postbuild)
+    end
+    if prj_prebuild then 
+        prebuildcommands(prj_prebuild)
+    end
+    if prj_prelink then 
+        prelinkcommands(prj_prelink)
+    end
     
     filter "configurations:Debug"
         defines { "DEBUG", "_DEBUG" }  
@@ -83,6 +92,9 @@ function NZA_include(what)
     prj_libs = nil
     prj_full_libs = nil
     prj_libfolder = nil
+    prj_postbuild = nil
+    prj_prebuild = nil
+    prj_prelink = nil
     include(what)
 end
 
@@ -97,3 +109,11 @@ function NZA_findBuildScripts(dir)
 end
 
 
+function NZA_RemoveLastFolder(path)
+    local parts = {}
+    for part in string.gmatch(path, "([^/]+)") do
+        table.insert(parts, part)
+    end
+    table.remove(parts, #parts)
+    return table.concat(parts, "/")
+end
