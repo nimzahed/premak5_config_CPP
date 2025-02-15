@@ -62,7 +62,7 @@ function NZA_newProject()
         defines(prj_defines)
     end
 
-    if prj_kindof == "SharedLib" then
+    if prj_kindof == "SharedLib" and os.target() == "windows" then
         defines { string.upper(prj_name).."_BUILD_DLL" }  
     end
 
