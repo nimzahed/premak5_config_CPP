@@ -1,3 +1,4 @@
+
 # Premake Config CPP
 its my premake5 configs to to make crossplatform cpp project
 
@@ -33,5 +34,10 @@ prj_links = nil -- {"project1", "project2Name", "project3Chilly"}
 prj_libfolder = nil -- better not cchange default is "%{wks.location}/lib/"
 prj_libs = nil -- {"something.lib", "something2.lib", "something3.lib"}
 prj_full_libs = nil -- same as up but with exact location for example "build/bin/x86_64/Debug/TestProject3.lib"
+
+prj_defines = nil -- {"SOME_DEF" } 
+prj_prebuild = nil - - {"commands" } 
+prj_postbuild = nil - - {"commands" } 
+prj_prelink = nil - - {"commands" } 
 
 ```
