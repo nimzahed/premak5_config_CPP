@@ -14,10 +14,10 @@ prj_name = nil -- "ProjectName" !important
 prj_loc = nil -- "Better/Not/Change/"
 prj_configs = nil -- (better use premake things by hand just implumented defines) 
 --[[usage (these are implumented by default) : { 
-    ["configurations:Release"] = {
+    ["Release"] = {
         ["defines"] = {"NDEBUG", "Release"},
     }
-    ["configurations:Debug"] = 
+    ["Debug"] = 
     {
         ["defines"] = {"DEBUG", "_DEBUG"},
     }
@@ -36,8 +36,8 @@ prj_libs = nil -- {"something.lib", "something2.lib", "something3.lib"}
 prj_full_libs = nil -- same as up but with exact location for example "build/bin/x86_64/Debug/TestProject3.lib"
 
 prj_defines = nil -- {"SOME_DEF" } 
-prj_prebuild = nil - - {"commands" } 
-prj_postbuild = nil - - {"commands" } 
-prj_prelink = nil - - {"commands" } 
+prj_prebuild = nil -- {"commands" } 
+prj_postbuild = nil -- {"commands" } 
+prj_prelink = nil -- {"commands" } 
 
 ```
