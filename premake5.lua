@@ -8,7 +8,8 @@ workspace "DuskField"
     
     if _ACTION == "vs2022" then
         buildoptions { "/utf-8" }
-    elseif os.target() == "linux" then
+    elseif _ACTION == "gmake" then
+        toolset "clang"
         buildoptions { "-finput-charset=UTF-8 -fexec-charset=UTF-8" }
     end
 
