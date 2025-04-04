@@ -6,7 +6,7 @@ workspace "DuskField"
     architecture "x86_64"
     location "./"
     
-    if os.target() == "windows" then
+    if _ACTION == "vs2022" then
         buildoptions { "/utf-8" }
     elseif os.target() == "linux" then
         buildoptions { "-finput-charset=UTF-8 -fexec-charset=UTF-8" }
