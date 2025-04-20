@@ -3,6 +3,7 @@ prj_links = {  "TestProject3", "TestProject2" }
 prj_includes = {
     "TestDir/TestProject3/", "TestDir/TestProject2/", 
 }
+prj_libs = {"test.lib", "Test2.lib", "test55.a"}
 
 --[[
 prj_name = nil -- "ProjectName" !important

@@ -1,29 +1,57 @@
 
-if os.target() == "windows" then
+if  os.target() == "windows" and _ACTION:match("^vs%d%d%d%d$") ~= nil then
     StaticLibExt = ".lib"
     SharedLibExt = ".dll"
 elseif os.target() == "linux" or os.target() == "android" then
     StaticLibExt = ".a"
     SharedLibExt = ".so"
-elseif os.target() == "maxos" then
+elseif os.target() == "macos" then
     StaticLibExt = ".a"
     SharedLibExt = ".dylib"
+elseif os.target() == "windows" then
+    StaticLibExt = ".a"
+    SharedLibExt = ".dll"
+end
+
+
+function NZA_ReplaceLibExtension(str)
+    return str:gsub("%.lib$", StaticLibExt):gsub("%.a$", StaticLibExt):gsub("%.lib$", StaticLibExt)
+end
+function NZA_MergeTables(t1, t2)
+    local result = {}
+
+    -- Copy elements from the first table
+    for _, v in ipairs(t1) do
+        table.insert(result, v)
+    end
+
+    -- Copy elements from the second table
+    for _, v in ipairs(t2) do
+        table.insert(result, v)
+    end
+
+    return result
+end
+
+function NZA_Print(text, color )
+    color = color or term.lightGray
+    term.setTextColor(color)
+    print(text)
+    term.setTextColor(term.lightGray)
 end
 
 function NZA_newProject()
     prj_libfolder = prj_libfolder or "%{wks.location}/lib/"
-
+    prj_configs = prj_configs or {}
+    
+    NZA_Print("\nMaking Project: "..prj_name, term.green)
     project(prj_name)  
 
-        if prj_pch then 
-            pchheader(prj_pch)
-        end
-        if prj_pchs then 
-            pchsource(prj_pchs)
-        end
-
+        NZA_Print("Project Type : "..prj_kindof,  term.infoColor )
         kind(prj_kindof)  
+        NZA_Print("Language : cpp",  term.infoColor )
         language "C++"   
+        NZA_Print("Version : c++20",  term.infoColor )
         cppdialect "C++20"
 
         targetdir "%{wks.location}/build/bin/%{cfg.architecture}/%{cfg.buildcfg}/%{prj.name}/"
@@ -41,7 +69,7 @@ function NZA_newProject()
             "%{prj.location}/**.lua", "%{prj.location}/**.txt", "%{prj.location}/**.ini", "%{prj.location}/**.md", 
         } 
 
-        removefiles { "include/**.*", "**/include/**.*" }
+        removefiles { "include/**.*" }
         if prj_files ~= nil then
             files (prj_files)
         end
@@ -52,20 +80,29 @@ function NZA_newProject()
         end
 
         if prj_links then 
+            NZA_Print("Linked Projects : ", term.cyan)
+            for i,v in ipairs(prj_links) do 
+                NZA_Print("    "..v, term.lightCyan)
+            end
             links(prj_links)
         end
-        if prj_libs then 
+
+        --[[if prj_libs then 
             local linksTable = {}
             for i, value in ipairs(prj_libs) do 
-                table.insert(linksTable, prj_libfolder..""..value)
+                table.insert(linksTable, prj_libfolder..""..NZA_ReplaceLibExtension(value))
             end
             links(linksTable)
-        end
+        end]]
+        
+        NZA_TrackLibsBasedOnProjectConfigs()
 
         if prj_full_libs then 
             local linksTable = {}
+            NZA_Print("Static Libraries (Not Standard Location)", term.blue)
             for i, value in ipairs(prj_full_libs) do 
-                table.insert(linksTable, value)
+                NZA_Print("    "..value, term.lightBlue)
+                table.insert(linksTable, NZA_ReplaceLibExtension(value))
             end
             links(linksTable)
         end
@@ -99,15 +136,46 @@ function NZA_newProject()
         filter{}
 
         if prj_configs then 
-            for key, val in pairs(configs) do
+            for key, val in pairs(prj_configs) do
                 filter("configurations:"..key)
                 if val["defines"] then 
-                    defines (val["defines"])
+                    defines (val["defines"])            
                 end
                 filter{}
             end
         end
 
+    
+        
+        if prj_pch then 
+            pchheader(prj_pch)
+            NZA_Print("PCH is : "..prj_pch, term.white)
+        end
+        if prj_pchs then 
+            pchsource(prj_pchs)
+            NZA_Print("PCH Source is : "..prj_pch, term.white)
+        end
+end
+
+function NZA_TrackLibsBasedOnProjectConfigs()
+    
+    if prj_libs then 
+        NZA_Print("Static Libraries : ", term.blue)
+        local said = false;
+        for j,jvalue in ipairs(sln_configs) do 
+            filter("configurations:"..jvalue)
+            local linksTable = {}
+            for i, value in ipairs(prj_libs) do 
+                if not said then 
+                    NZA_Print("    "..value, term.lightBlue)
+                end
+                table.insert(linksTable, prj_libfolder..jvalue.."/"..NZA_ReplaceLibExtension(value))
+            end
+            links(linksTable)
+            said = true
+            filter{}
+        end
+    end
 end
 
 function NZA_include(what)
