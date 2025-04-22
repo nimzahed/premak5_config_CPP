@@ -74,6 +74,13 @@ function NZA_newProject()
             files (prj_files)
         end
 
+
+        if prj_loc then 
+            removefiles ({prj_loc.."/include/**.*"})
+        else
+            removefiles ({"%{wks.location}/"..prj_name.."/include/**.*"})
+        end
+
         includedirs { "%{prj.location}/include", "%{wks.location}/include" } 
         if prj_includes then 
             includedirs(prj_includes)
