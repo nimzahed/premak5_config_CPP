@@ -51,8 +51,8 @@ function NZA_newProject()
         kind(prj_kindof)  
         NZA_Print("Language : cpp",  term.infoColor )
         language "C++"   
-        NZA_Print("Version : c++20",  term.infoColor )
-        cppdialect "C++20"
+        NZA_Print("Version : c++23",  term.infoColor )
+        cppdialect "C++23"
 
         targetdir "%{wks.location}/build/bin/%{cfg.architecture}/%{cfg.buildcfg}/%{prj.name}/"
         objdir "%{wks.location}/build/obj/%{cfg.architecture}/%{cfg.buildcfg}/%{prj.name}/" 
@@ -77,7 +77,7 @@ function NZA_newProject()
 
         
 
-        includedirs { "%{prj.location}/include", "%{wks.location}/include" } 
+        includedirs { --[["%{prj.location}/include",]] "%{wks.location}/include" } 
         if prj_includes then 
             includedirs(prj_includes)
         end
