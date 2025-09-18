@@ -1,16 +1,23 @@
+if _ACTION == nil then 
+    return
+end
+
 include "premake5-manager.lua"
 
 
-workspace "DuskField"  
+workspace "Solution_Name"  
     sln_configs = {"Debug", "Release"}
     configurations (sln_configs)
     architecture "x86_64"
     location "./"
     
+    -- love clang :)
+    toolset "clang"
+
+    -- TODO: make utf8 in all platforms and putt in manager file
     if _ACTION:match("^vs%d%d%d%d$") ~= nil   then
         buildoptions { "/utf-8" }
     elseif _ACTION == "gmake" then
-        toolset "clang"
         buildoptions { "-finput-charset=UTF-8 -fexec-charset=UTF-8" }
     end
     

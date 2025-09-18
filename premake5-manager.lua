@@ -13,10 +13,10 @@ elseif os.target() == "windows" then
     SharedLibExt = ".dll"
 end
 
-
 function NZA_ReplaceLibExtension(str)
     return str:gsub("%.lib$", StaticLibExt):gsub("%.a$", StaticLibExt):gsub("%.lib$", StaticLibExt)
 end
+
 function NZA_MergeTables(t1, t2)
     local result = {}
 
@@ -77,7 +77,7 @@ function NZA_newProject()
 
         
 
-        includedirs { --[["%{prj.location}/include",]] "%{wks.location}/include" } 
+        includedirs { "%{prj.location}/include", "%{wks.location}/include" } 
         if prj_includes then 
             includedirs(prj_includes)
         end
@@ -105,7 +105,8 @@ function NZA_newProject()
             NZA_Print("Static Libraries (Not Standard Location)", term.blue)
             for i, value in ipairs(prj_full_libs) do 
                 NZA_Print("    "..value, term.lightBlue)
-                table.insert(linksTable, NZA_ReplaceLibExtension(value))
+                --table.insert(linksTable, NZA_ReplaceLibExtension(value))
+                linksTable[#linksTable + 1] = NZA_ReplaceLibExtension(value)
             end
             links(linksTable)
         end
@@ -156,7 +157,7 @@ function NZA_newProject()
         end
         if prj_pchs then 
             pchsource(prj_pchs)
-            NZA_Print("PCH Source is : "..prj_pch, term.white)
+            NZA_Print("PCH Source is : "..prj_pchs, term.white)
         end
 end
 
