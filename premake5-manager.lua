@@ -1,4 +1,3 @@
-
 if  os.target() == "windows" and _ACTION:match("^vs%d%d%d%d$") ~= nil then
     StaticLibExt = ".lib"
     SharedLibExt = ".dll"
@@ -16,7 +15,6 @@ end
 function NZA_ReplaceLibExtension(str)
     return str:gsub("%.lib$", StaticLibExt):gsub("%.a$", StaticLibExt):gsub("%.lib$", StaticLibExt)
 end
-
 function NZA_MergeTables(t1, t2)
     local result = {}
 
@@ -51,8 +49,8 @@ function NZA_newProject()
         kind(prj_kindof)  
         NZA_Print("Language : cpp",  term.infoColor )
         language "C++"   
-        NZA_Print("Version : c++23",  term.infoColor )
-        cppdialect "C++23"
+        NZA_Print("Version : c++20",  term.infoColor )
+        cppdialect "C++20"
 
         targetdir "%{wks.location}/build/bin/%{cfg.architecture}/%{cfg.buildcfg}/%{prj.name}/"
         objdir "%{wks.location}/build/obj/%{cfg.architecture}/%{cfg.buildcfg}/%{prj.name}/" 
